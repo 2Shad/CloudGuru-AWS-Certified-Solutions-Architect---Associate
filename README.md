@@ -1,5 +1,5 @@
 # CloudGuru-AWS-Certified-Solutions-Architect---Associate
-My notes following the **AWS-Certified-Solutions-Architect - Associate** course avaliable on CloudGuru
+##### My notes following the **AWS-Certified-Solutions-Architect - Associate** course avaliable on CloudGuru
 ---
 
 # Exam Guide
@@ -49,17 +49,17 @@ My notes following the **AWS-Certified-Solutions-Architect - Associate** course 
 
 # Shared Responsibility Model
 
-| **Customer Responsibility (IN the Cloud)**                                                                                                                                                     | **AWS Responsibility (OF the Cloud)**                                    |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Customer Data**                                                                                                                                        | **Software**                                                             |
-| **Platform, Applications, Identity & Access Management**                                                                                                | - Compute                                                                |
-| **Operating System, Network & Firewall Configuration**                                                                                                   | - Storage                                                                |
-| **Client-Side Data Encryption & Data Integrity Authentication**                                                                                          | - Database                                                               |
-| **Server-Side Encryption (File System and/or Data)**                                                                                                     | - Networking                                                             |
-| **Networking Traffic Protection (Encryption, Integrity, Identity)**                                                                                      | **Hardware / AWS Global Infrastructure**                                 |
-|                                                                                                                                                           | - Regions                                                                |
-|                                                                                                                                                           | - Availability Zones                                                     |
-|                                                                                                                                                           | - Edge Locations                                                         |
+| **Customer Responsibility (IN the Cloud)**                                 | **AWS Responsibility (OF the Cloud)**             |
+|-----------------------------------------------------------------------------|---------------------------------------------------|
+| **Customer Data**                                                           | **Software**                                      |
+| **Platform, Applications, Identity & Access Management**                   | - Compute                                         |
+| **Operating System, Network & Firewall Configuration**                     | - Storage                                         |
+| **Client-Side Data Encryption & Data Integrity Authentication**            | - Database                                        |
+| **Server-Side Encryption (File System and/or Data)**                       | - Networking                                      |
+| **Networking Traffic Protection (Encryption, Integrity, Identity)**        | **Hardware / AWS Global Infrastructure**          |
+|                                                                             | - Regions                                         |
+|                                                                             | - Availability Zones                              |
+|                                                                             | - Edge Locations                                  |
 
 ### Can you do this yourself in the AWS Management Console?
 
