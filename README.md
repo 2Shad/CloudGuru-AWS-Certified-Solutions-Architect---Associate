@@ -4,14 +4,14 @@ My notes following the **AWS-Certified-Solutions-Architect - Associate** course 
 
 # Exam Guide
 
-## Exam Overview
+### Exam Overview
 - **Exam Format:**
   - Score range: 100–1,000
   - Minimum passing score: 720
   - Total questions: 65
   - Time allotted: 130 minutes
 
-## Response Types
+### Response Types
 - **Scenario-based questions:**
   - Real-world scenarios requiring interpretation of keywords and requirements.
 - **Multiple choice:**
@@ -19,7 +19,7 @@ My notes following the **AWS-Certified-Solutions-Architect - Associate** course 
 - **Multiple response:**
   - Two correct responses out of five options.
 
-## Exam Domains and Weights
+### Exam Domains and Weights
 1. **Design Resilient Architectures (26%):**
    - Design multi-tier, scalable, fault-tolerant solutions.
    - Implement decoupling mechanisms like message queues.
@@ -45,3 +45,27 @@ My notes following the **AWS-Certified-Solutions-Architect - Associate** course 
 - **Edge Locations**
   - Endpoints for AWS that are used for caching content.
   - Typically consists of **CloudFront**, Amazon's Content Delivery Network (CDN).
+---
+
+# Shared Responsibility Model
+
+| **Customer Responsibility (IN the Cloud)**                                                                                                                                                     | **AWS Responsibility (OF the Cloud)**                                    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Customer Data**                                                                                                                                        | **Software**                                                             |
+| **Platform, Applications, Identity & Access Management**                                                                                                | - Compute                                                                |
+| **Operating System, Network & Firewall Configuration**                                                                                                   | - Storage                                                                |
+| **Client-Side Data Encryption & Data Integrity Authentication**                                                                                          | - Database                                                               |
+| **Server-Side Encryption (File System and/or Data)**                                                                                                     | - Networking                                                             |
+| **Networking Traffic Protection (Encryption, Integrity, Identity)**                                                                                      | **Hardware / AWS Global Infrastructure**                                 |
+|                                                                                                                                                           | - Regions                                                                |
+|                                                                                                                                                           | - Availability Zones                                                     |
+|                                                                                                                                                           | - Edge Locations                                                         |
+
+### Can you do this yourself in the AWS Management Console?
+
+- **If yes, you are likely responsible.**  
+  Security groups, IAM users, patching EC2 operating systems, patching databases running on EC2, etc.
+- **If not, AWS is likely responsible.**  
+  Management of data centers, security cameras, cabling, patching RDS operating systems, etc.
+- **Encryption is a shared responsibility.**
+---
