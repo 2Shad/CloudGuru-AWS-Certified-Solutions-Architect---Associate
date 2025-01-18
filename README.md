@@ -1,6 +1,6 @@
 # CloudGuru-AWS-Certified-Solutions-Architect---Associate
 My notes following the **AWS-Certified-Solutions-Architect - Associate** course avaliable on CloudGuru
-
+---
 
 # Exam Guide
 
@@ -34,3 +34,14 @@ My notes following the **AWS-Certified-Solutions-Architect - Associate** course 
 4. **Design Cost-Optimized Architectures (20%):**
    - Identify cost-effective storage and compute options (e.g., S3 tiers, spot instances).
    - Optimize network architectures for cost.
+---
+
+# Key AWS Components
+
+- **Region**
+  - A physical location in the world that consists of two or more Availability Zones (AZs).
+- **Availability Zone (AZ)**
+  - One or more discrete data centers — each with redundant power, networking, and connectivity — housed in separate facilities.
+- **Edge Locations**
+  - Endpoints for AWS that are used for caching content.
+  - Typically consists of **CloudFront**, Amazon's Content Delivery Network (CDN).
