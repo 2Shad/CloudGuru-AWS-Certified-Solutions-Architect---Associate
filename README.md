@@ -49,17 +49,23 @@
 
 # Shared Responsibility Model
 
-| **Customer Responsibility (IN the Cloud)**                                 | **AWS Responsibility (OF the Cloud)**             |
-|-----------------------------------------------------------------------------|---------------------------------------------------|
-| **Customer Data**                                                           | **Software**                                      |
-| **Platform, Applications, Identity & Access Management**                   | - Compute                                         |
-| **Operating System, Network & Firewall Configuration**                     | - Storage                                         |
-| **Client-Side Data Encryption & Data Integrity Authentication**            | - Database                                        |
-| **Server-Side Encryption (File System and/or Data)**                       | - Networking                                      |
-| **Networking Traffic Protection (Encryption, Integrity, Identity)**        | **Hardware / AWS Global Infrastructure**          |
-|                                                                             | - Regions                                         |
-|                                                                             | - Availability Zones                              |
-|                                                                             | - Edge Locations                                  |
+# Shared Responsibility Model
+
+### Customer Responsibility (IN the Cloud)
+| **Customer Responsibility**                            |                                                           |                                                           |
+|--------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------------|
+| **Customer Data**                                      |                                                           |                                                           |
+| **Platform, Applications, Identity & Access Management** |                                                           |                                                           |
+| **Operating System, Network & Firewall Configuration** |                                                           |                                                           |
+| **Client-Side Data Encryption**                       | **Server-Side Encryption (File System and/or Data)**       | **Networking Traffic Protection (Encryption, Integrity, Identity)** |
+
+### AWS Responsibility (OF the Cloud)
+| **Software**       | **Hardware / AWS Global Infrastructure**         |                                |
+|---------------------|-------------------------------------------------|--------------------------------|
+| **Compute**         | **Regions**                                     |                                |
+| **Storage**         | **Availability Zones**                          |                                |
+| **Database**        | **Edge Locations**                              |                                |
+| **Networking**      |                                                 |                                |
 
 ### Can you do this yourself in the AWS Management Console?
 
