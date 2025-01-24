@@ -188,3 +188,151 @@ For this reason, it is important to secure this account.
    - Enable MFA and avoid using the root account for day-to-day activities.
 5. **AWS Policy Library**:
    - Leverage predefined AWS-managed policies for common roles (e.g., Administrator Access, View-Only Access).
+
+
+
+
+# IAM Hands-On Lab: Managing Users, Groups, and Permissions
+
+### Objective
+Learn the foundations of AWS Identity and Access Management (IAM) by creating and managing users, groups, and permissions. Understand how IAM policies enforce access restrictions and how to simulate real-world scenarios.
+
+---
+
+### Steps Taken
+
+1. **Exploring IAM Users and Groups**:
+   - Reviewed user permissions and groups.
+   - Verified no permissions were assigned to users initially.
+   - Examined group policies:
+     - **EC2-Admin**: Full access to start, stop, and view EC2 instances.
+     - **EC2-Support**: Read-only EC2 access.
+     - **S3-Support**: Read-only S3 access.
+
+2. **Assigning Users to Groups**:
+   - Added `user-1` to **S3-Support** (read-only access to S3).
+   - Added `user-2` to **EC2-Support** (read-only access to EC2).
+   - Added `user-3` to **EC2-Admin** (view, start, and stop EC2 instances).
+
+3. **Testing Permissions**:
+   - **Sign-in as `user-1`**:
+     - Verified access to **S3**. Could not create a bucket (Access Denied).
+     - Encountered API errors for EC2 (no permissions).
+   - **Sign-in as `user-2`**:
+     - Verified access to **EC2**. Could view instances but could not stop them (Access Denied).
+     - Confirmed no access to **S3**.
+   - **Sign-in as `user-3`**:
+     - Verified full access to **EC2**. Successfully stopped a running instance.
+
+4. **Access Control Insights**:
+   - Explored IAM-managed policies and inline policies for groups and users.
+   - Verified that group policies enforce user permissions.
+
+
+
+# IAM Hands-On Lab: Create and Assume Roles in AWS
+
+### Objective
+Learn how to create and manage IAM policies and roles to restrict user access to specific AWS resources. Understand the concept of assuming roles and how it facilitates secure access control in AWS.
+
+---
+
+### Steps Taken
+
+1. **Created a Custom IAM Policy**:
+   - Navigated to S3 and identified buckets to restrict access (`appconfigprod` buckets).
+   - Created the **S3RestrictedPolicy**:
+     - Allowed all S3 actions but restricted resources to the two `appconfigprod` buckets.
+     - Added the ARNs for the restricted buckets to the policy.
+   - Attached the policy to `user1`.
+
+2. **Created an IAM Role**:
+   - Created the **S3RestrictedRole**:
+     - Trusted entity: The current AWS account.
+     - Attached the **S3RestrictedPolicy** to the role.
+
+3. **Configured Trust Relationship**:
+   - Allowed `user2` to assume the **S3RestrictedRole**:
+     - Updated the trust policy for the role with `user2`'s ARN.
+
+4. **Tested Policy and Role Configuration**:
+   - **Signed in as `user1`**:
+     - Confirmed no access to EC2 or `customerdata` buckets.
+     - Verified access to the `appconfigprod` buckets.
+   - **Signed in as `user2`**:
+     - Confirmed no access to any buckets by default.
+     - Used the "Switch Role" feature to assume the **S3RestrictedRole**:
+       - Verified access to `appconfigprod` buckets.
+       - Confirmed restricted access to `customerdata` buckets.
+
+
+
+
+# AWS S3
+
+#### **What is S3?**
+- **S3** stands for **Simple Storage Service**, providing object-based storage in the cloud.
+- **Features:**
+  - Secure, durable, and highly scalable.
+  - Allows storing and retrieving any amount of data from anywhere on the web at low costs.
+  - Simple-to-use web interface.
+  
+#### **Key Characteristics of S3**
+1. **Object-Based Storage**:
+   - Stores files as objects rather than in file systems or data blocks.
+   - Examples of file types: images, videos, documents, code, etc.
+   - Not for operating systems or databases.
+2. **Unlimited Storage**:
+   - Unlimited number of objects with individual object sizes ranging from **0 bytes to 5 TB**.
+3. **Buckets**:
+   - Containers (similar to folders) where files (objects) are stored.
+   - Must have **globally unique names** within the **S3 universal namespace**.
+   - Example of bucket URL: `https://bucket-name.s3.Region.amazonaws.com/key-name`.
+4. **Key-Value Storage**:
+   - Key: Object name (e.g., `photo.jpg`).
+   - Value: Actual data stored.
+   - Includes **metadata** (data about data, e.g., content type, modification time).
+   - Supports **versioning** to manage multiple object versions.
+
+#### **Availability & Durability**
+- **Designed for Availability**:
+  - 99.95% to 99.99% depending on the S3 tier.
+- **Durability**:
+  - 99.999999999% (11 nines) durability, ensuring negligible data loss.
+- Data is replicated across multiple devices and facilities (e.g., multiple Availability Zones).
+
+#### **Storage Tiers**
+- **Standard S3**:
+  - Default tier for frequently accessed data.
+  - Designed for high availability and durability.
+  - Suitable for websites, content distribution, big data analytics, etc.
+- **Lifecycle Management**:
+  - Allows automatic transition of objects to cheaper tiers or deletion after a set period.
+- **Versioning**:
+  - Retains all versions of objects, including deleted ones.
+
+#### **Securing Data in S3**
+1. **Server-Side Encryption (SSE)**:
+   - Encrypts objects as they are uploaded to buckets.
+2. **Access Control Lists (ACLs)**:
+   - Fine-grained permissions for specific AWS accounts or groups.
+   - Can be applied to individual files within a bucket.
+3. **Bucket Policies**:
+   - JSON policies governing actions (e.g., `PUT`, `GET`) on a bucket-wide level.
+   - Example: Granting user Alice permission to upload files but not delete them.
+
+#### **Consistency Model**
+- **Strong Read-After-Write Consistency**:
+  - Any read request after uploading or modifying an object immediately retrieves the latest version.
+  - Includes strong consistency for list operations (e.g., listing all objects in a bucket).
+
+#### **Important Exam Tips**
+- S3 is **object-based** storage for static files, not for operating systems or databases.
+- Objects can be up to **5 TB** in size, and total storage is unlimited.
+- Buckets must have **globally unique names**.
+- Successful uploads via CLI/API return an **HTTP 200 status code**.
+- Key S3 components include:
+  - **Key**: Object name.
+  - **Value**: Data stored.
+  - **Version ID**: Tracks multiple versions of the same object.
+  - **Metadata**: Information about the stored data.
