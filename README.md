@@ -336,3 +336,69 @@ Learn how to create and manage IAM policies and roles to restrict user access to
   - **Value**: Data stored.
   - **Version ID**: Tracks multiple versions of the same object.
   - **Metadata**: Information about the stored data.
+
+## Securing S3 Buckets with Block Public Access
+
+This exercise focused on understanding and applying access control for S3 buckets, particularly using the **S3 Block Public Access** feature. By default, S3 buckets are private, and this exercise demonstrated how to securely modify settings to allow or restrict public access at both the bucket and object levels. Explored **Access Control Lists (ACLs)** and **Bucket Policies**, understanding their use cases and limitations while managing object permissions.
+
+#### Steps Taken
+1. **Create an S3 Bucket**:
+   - Navigated to the AWS Management Console and selected S3.
+   - Created a new, uniquely named S3 bucket in the `us-east-1` region with default settings (private access by default).
+
+2. **Upload Files**:
+   - Uploaded two files to the S3 bucket and confirmed successful uploads via HTTP `200` response codes.
+
+3. **Test Default Permissions**:
+   - Attempted to access the files via their object URLs but received "Access Denied" errors, as the bucket and objects were private by default.
+
+4. **Modify Bucket Permissions**:
+   - Edited **Block Public Access settings** in the Permissions tab:
+     - Disabled blocking public access to the bucket.
+   - Adjusted **Object Ownership settings** to enable the use of ACLs by unchecking the "Bucket owner enforced" option.
+
+5. **Make Individual Objects Public**:
+   - Used **Object ACLs** to make the uploaded files public.
+   - Verified access by testing the object URLs and confirming public access.
+
+6. **Key Learnings**:
+   - Buckets and objects are private by default, and explicit permissions must be configured for public access.
+   - **Object ACLs** allow permissions at the object level, while **Bucket Policies** can grant permissions for the entire bucket.
+   - Proper testing ensures that access changes are reflected accurately and securely.
+
+
+## Hosting a Static Website Using S3
+
+This exercise demonstrates how to host a static website using Amazon S3. Static websites consist of files such as HTML and CSS, which do not rely on backend processing or databases. S3 is particularly suited for hosting static sites due to its scalability and simplicity, automatically handling varying traffic loads without manual intervention. 
+
+---
+
+### Steps Taken
+
+1. **Preparing Website Files:**
+   - Downloaded a zip file containing `index.html`, `error.html`, and a JSON policy for bucket permissions.
+   - `index.html` was the main homepage file, while `error.html` displayed a message for incorrect or unavailable URLs.
+
+2. **Creating the S3 Bucket:**
+   - Navigated to the S3 console in AWS.
+   - Created a new bucket with a unique name.
+   - Unchecked the "Block all public access" setting to allow public access.
+   - Acknowledged the warning about public access for the bucket and its contents.
+
+3. **Configuring Static Website Hosting:**
+   - Navigated to the bucket's properties and enabled "Static website hosting."
+   - Set the `index.html` as the default document and `error.html` as the error document.
+
+4. **Uploading Website Files:**
+   - Uploaded the `index.html` and `error.html` files into the S3 bucket.
+   - Verified that the files were successfully uploaded.
+
+5. **Making the Bucket Public:**
+   - Edited the bucket policy by pasting a predefined JSON policy.
+   - Updated the `Resource` field in the policy to include the specific bucket's ARN (Amazon Resource Name).
+   - Saved the policy to make the entire bucket public.
+
+6. **Testing the Website:**
+   - Accessed the website via the provided bucket website endpoint.
+   - Verified the functionality of `index.html` as the homepage.
+   - Tested the error-handling functionality by navigating to an incorrect URL, which correctly displayed `error.html`.
