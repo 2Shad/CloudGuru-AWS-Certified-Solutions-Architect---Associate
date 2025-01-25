@@ -438,3 +438,91 @@ This exercise focused on **versioning in Amazon S3**, a feature that allows you 
    - Highlighted the benefits of versioning, including its backup capabilities and integration with lifecycle rules.
    - Explained scenarios where enabling versioning and MFA can prevent accidental deletions.
    - Reinforced that versioning cannot be completely disabled once activated, ensuring data safety.
+
+
+
+Got it! Here's a more concise and test-focused version of the notes:
+
+---
+
+### **S3 Storage Classes**
+
+#### **S3 Standard**
+- High availability (99.99%) and durability (99.999999999% or "11 nines").
+- Redundant storage across multiple AZs (≥3).
+- Designed for frequent access.
+- Suitable for websites, mobile apps, big data analytics, and content distribution.
+
+#### **S3 Standard-Infrequent Access (IA)**
+- Lower storage cost for infrequent access but requires rapid retrieval.
+- 99.9% availability and 99.999999999% durability.
+- Includes per-GB retrieval fees.
+- Use cases: Backups, disaster recovery, long-term storage.
+
+#### **S3 One Zone-Infrequent Access**
+- Similar to Standard-IA, but data is stored in a single AZ.
+- 99.5% availability and 99.999999999% durability.
+- Costs ~20% less than Standard-IA.
+- Use case: Non-critical, long-lived, infrequently accessed data.
+
+#### **S3 Intelligent-Tiering**
+- Automatically optimizes cost by moving data between frequent and infrequent access tiers.
+- Monitoring and automation fee applies.
+- No retrieval fees in frequent/infrequent tiers.
+- Ideal for data with unpredictable access patterns.
+
+#### **S3 Glacier**
+- **Glacier Instant Retrieval**: Archival storage with millisecond access time.
+- **Glacier Flexible Retrieval**: Lower cost, flexible retrieval within minutes to 12 hours.
+- **Glacier Deep Archive**: Cheapest option for long-term retention (7–10 years); retrieval times 12–48 hours.
+- Use cases: Compliance archives, disaster recovery, rarely accessed data.
+
+
+### ** S3 Glacier Tiers**
+
+#### **1. Glacier Instant Retrieval**
+- **Purpose**: Long-term archival storage with fast retrieval (millisecond access).
+- **Cost**: 
+  - Storage: $0.004 per GB per month.
+  - Retrieval: Minimal fees for instant access.
+- **Use Cases**:
+  - Archiving active data that needs quick access occasionally.
+  - Media assets, medical imaging, or long-term project data requiring immediate availability.
+
+#### **2. Glacier Flexible Retrieval**
+- **Purpose**: Lower-cost archival storage with flexible retrieval options.
+- **Retrieval Time**:
+  - Standard: Minutes to hours.
+  - Bulk: Up to 12 hours for large datasets.
+- **Cost**:
+  - Storage: $0.0036 per GB per month.
+  - Retrieval:
+    - Standard: Free for up to 5% of your stored data per month.
+    - Additional requests incur fees.
+- **Use Cases**:
+  - Disaster recovery.
+  - Backup systems where immediate access isn't critical.
+  - Periodic access to large datasets.
+
+#### **3. Glacier Deep Archive**
+- **Purpose**: Cheapest archival storage for infrequent, long-term retention (e.g., regulatory compliance).
+- **Retrieval Time**:
+  - Standard: 12 hours.
+  - Bulk: 48 hours.
+- **Cost**:
+  - Storage: $0.00099 per GB per month.
+  - Retrieval:
+    - Bulk retrieval has lower fees compared to Instant or Flexible tiers.
+- **Use Cases**:
+  - Regulatory compliance (e.g., legal or healthcare).
+  - Data retention for 7–10 years or longer.
+  - Historical archives and long-term backups with rare retrieval requirements.
+
+#### **Comparison of Glacier Tiers**
+| **Feature**               | **Glacier Instant**    | **Glacier Flexible** | **Glacier Deep Archive** |
+|---------------------------|------------------------|-----------------------|---------------------------|
+| **Retrieval Time**        | Milliseconds          | Minutes to 12 hours  | 12–48 hours              |
+| **Cost (per GB/month)**   | $0.004                | $0.0036              | $0.00099                 |
+| **Storage Use Cases**     | Active archival data  | Backups, DR          | Long-term, infrequent    |
+| **Durability**            | 99.999999999% (11 9's)| Same                 | Same                     |
+| **Lifecycle Transition** | Supported             | Supported            | Supported                |
