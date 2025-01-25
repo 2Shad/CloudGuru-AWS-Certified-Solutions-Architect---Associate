@@ -712,3 +712,81 @@ Got it! Here's a more concise and test-focused version of the notes:
     - `aws:kms` (SSE-KMS).
 
 With encryption now being default, most exam scenarios focus on **enforcing specific policies** and understanding the **different encryption methods available**.
+
+
+
+## Optimizing S3 Performance
+
+#### S3 Prefixes
+- **Definition**: Folders and subfolders inside an S3 bucket. Does not include the object name or file type.
+  - Example:
+    - `mybucket/folder1/subfolder1/myfile.jpg` → Prefix: `/folder1/subfolder1`
+    - `mybucket/folder2/subfolder1/myfile.jpg` → Prefix: `/folder2/subfolder1`
+- **Performance Benefits**:
+  - More prefixes → Better performance.
+  - Request limits:
+    - **3,500** requests per second for PUT/COPY/POST/DELETE.
+    - **5,500** GET/HEAD requests per second per prefix.
+  - Example:
+    - Using **2 prefixes** → 11,000 GET requests per second.
+    - Using **4 prefixes** → 22,000 GET requests per second.
+- **Tip**: Distribute data across multiple prefixes to improve performance.
+
+---
+
+#### S3 Performance for Uploads
+- **Multipart Uploads**:
+  - Recommended for files **>100MB**.
+  - Required for files **>5GB**.
+  - **How It Works**:
+    - Large files are split into chunks.
+    - Chunks are uploaded in parallel, increasing efficiency.
+- **Scenario**:
+  - For optimizing upload performance in a test, consider **Multipart Uploads**.
+
+---
+
+#### S3 Performance for Downloads
+- **Byte-Range Fetches**:
+  - Enables parallel downloads by specifying byte ranges.
+  - Benefits:
+    - Faster downloads.
+    - Fault tolerance: Failure only affects specific byte ranges.
+  - Example:
+    - A **5GB** file can be split into 5 **1GB chunks**, downloaded simultaneously.
+
+---
+
+#### Limitations with SSE-KMS (Key Management Service)
+- **Built-In Limits**:
+  - Region-specific request limits: **5,500**, **10,000**, or **30,000** requests per second.
+  - Both uploading and downloading count towards this quota.
+- **Quota Restrictions**:
+  - Quotas cannot be increased.
+- **Tips**:
+  - For encryption-related scenarios, consider S3 native encryption if hitting KMS limits.
+
+
+### Exam Tips
+
+- **Prefixes for Performance:**
+  - Distribute traffic across multiple prefixes (e.g., `/folder1/subfolder1`) to increase throughput.
+  - Each prefix supports **3,500 PUT/POST/DELETE** and **5,500 GET/HEAD requests/sec**.
+
+- **Multipart Uploads:**
+  - Boost efficiency by splitting files into parts for parallel uploads.
+  - Recommended for files over **100 MB**; required for files over **5 GB**.
+
+- **Byte-Range Fetches:**
+  - Enhance download performance by retrieving specific file ranges.
+  - Fault-tolerant: retries occur only for the failed byte range.
+
+- **KMS Quotas:**
+  - SSE-KMS encryption requests are subject to regional quotas (5,500, 10,000, or 30,000 requests/sec).
+  - Quotas cannot be increased, so plan workloads accordingly.
+
+- **Encryption Overhead:**
+  - Using SSE-KMS incurs additional API calls for encryption (`GenerateDataKey`) and decryption (`Decrypt`), potentially creating bottlenecks.
+
+- **Performance Optimization:**
+  - Combine prefixes, multipart uploads, and byte-range fetches for scalable, efficient S3 operations.
