@@ -526,3 +526,71 @@ Got it! Here's a more concise and test-focused version of the notes:
 | **Storage Use Cases**     | Active archival data  | Backups, DR          | Long-term, infrequent    |
 | **Durability**            | 99.999999999% (11 9's)| Same                 | Same                     |
 | **Lifecycle Transition** | Supported             | Supported            | Supported                |
+
+
+
+## Lifecycle Management in S3
+
+#### What is Lifecycle Management?
+- **Definition**: Automates moving objects between different storage tiers to maximize cost efficiency.
+- **Purpose**: Saves money by transitioning objects that are not frequently accessed to cheaper storage tiers.
+
+#### Example Workflow:
+1. **S3 Standard**: Objects are stored here initially.
+2. **S3 Infrequent Access (S3 IA)**: After 30 days of inactivity, objects are moved here.
+3. **Glacier**: After 90 days, objects are archived to Glacier for long-term storage at lower cost.
+
+#### Combining with Versioning:
+- Lifecycle Management can move **different versions** of objects to different storage tiers, offering further cost-saving opportunities.
+- Example: Keep the latest version in **Standard** and older versions in **Glacier**.
+
+
+### Steps for Configuring Lifecycle Management in AWS S3
+
+1. **Create a Bucket**:
+   - Go to the AWS Management Console.
+   - Navigate to **S3** and create a new bucket (e.g., `acloudgurulifecycle`).
+   - Use default settings for the bucket.
+
+2. **Upload Objects**:
+   - Add objects to the newly created bucket (e.g., upload three sample photos).
+
+3. **Access Lifecycle Rules**:
+   - Go to the **Management** tab within the bucket.
+   - Click on **Lifecycle Rules** to define automated actions for object storage.
+
+4. **Create a Lifecycle Rule**:
+   - Click **Create Lifecycle Rule** and give it a name (e.g., `Rule1`).
+   - Apply the rule to all objects in the bucket or filter specific objects.
+   - Acknowledge the warning message.
+
+5. **Define Actions**:
+   - Select actions such as:
+     - Transition **current versions** of objects between storage classes.
+     - Transition **non-current versions** of objects (if versioning is enabled).
+     - Set expiration rules to permanently delete objects after a specified period.
+   - Example:
+     - Transition objects to **S3 Infrequent Access** after 30 days.
+     - Transition objects to **Glacier Instant Retrieval** after 60 days.
+
+6. **Visualize the Rule**:
+   - A timeline map will display the flow:
+     - Day 0: Object is uploaded.
+     - Day 30: Moved to **S3 IA**.
+     - Day 60: Moved to **Glacier**.
+   - Click **Create Rule** to save.
+
+7. **Enable Versioning (Optional)**:
+   - Go to the **Properties** tab in the bucket and enable versioning.
+   - This allows applying lifecycle rules to **specific object versions**.
+
+
+### Exam Tips:
+1. **Understand the Automation**:
+   - Lifecycle Management rules automate cost-saving transitions across storage tiers.
+2. **Versioning Integration**:
+   - Rules can be applied to current and previous versions of objects.
+3. **Key Use Case**:
+   - Moving infrequently accessed files to cheaper tiers (e.g., S3 IA or Glacier) to minimize costs.
+4. **Scenario-Based Questions**:
+   - Expect scenarios about managing costs by transitioning files effectively using lifecycle rules.
