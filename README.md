@@ -646,3 +646,69 @@ Got it! Here's a more concise and test-focused version of the notes:
    - Can apply to individual objects or entire buckets.
 4. **Glacier Vault Lock**:
    - Think of this for compliance needs in Glacier.
+
+
+
+## Encryption in Amazon S3
+
+#### Types of Encryption
+1. **Encryption in Transit**
+   - Secures data while being transferred to/from the bucket.
+   - Utilizes **SSL/TLS** or **HTTPS** (port 443).
+   - Prevents eavesdroppers from accessing data in transit.
+
+2. **Encryption at Rest**
+   - Protects data stored in S3.
+   - **Server-Side Encryption (SSE)**:
+     - **SSE-S3**:
+       - Managed by Amazon S3.
+       - Uses AES 256-bit encryption.
+       - Default for all new buckets.
+     - **SSE-KMS**:
+       - Managed with AWS Key Management Service (KMS).
+       - User manages key permissions via KMS.
+     - **SSE-C**:
+       - Customer-provided keys.
+       - S3 manages encryption/decryption using customer keys.
+   - **Client-Side Encryption**:
+     - Users encrypt data locally before uploading.
+     - Users manage both encryption and decryption processes.
+
+#### Enforcing Encryption
+- Encryption is **enabled by default** for all new buckets (with SSE-S3).
+- To enforce specific encryption policies:
+  - Add `x-amz-server-side-encryption` to **PUT request headers**.
+    - Options:
+      - `AES256` (SSE-S3).
+      - `aws:kms` (SSE-KMS).
+  - Create a **bucket policy** to deny PUT requests without the encryption parameter:
+    - Example:
+      - Deny requests lacking `x-amz-server-side-encryption`.
+
+#### Steps for Setting Encryption in the AWS Console
+1. Navigate to **S3** in the AWS Management Console.
+2. Click **Create Bucket**.
+3. In the **Encryption** section:
+   - Encryption is enabled by default.
+   - Choose between:
+     - **SSE-S3** (Amazon S3-managed keys).
+     - **SSE-KMS** (AWS Key Management Service-managed keys).
+     - **Dual-layer encryption** (SSE-KMS with extra layers of key management, optional).
+4. Complete the bucket creation process.
+5. View encryption settings:
+   - Open an existing bucket.
+   - Select an object.
+   - Scroll to **Server-Side Encryption Settings** to view the applied encryption type.
+
+#### Key Notes for Exam Preparation
+- Encryption at Rest is **enabled by default**.
+- **Three types of server-side encryption**: SSE-S3, SSE-KMS, and SSE-C.
+- **Client-side encryption** requires user-managed keys.
+- Enforce encryption:
+  - **Bucket policies** can deny PUT requests without encryption headers.
+- Common headers in PUT requests:
+  - `x-amz-server-side-encryption`:
+    - `AES256` (SSE-S3).
+    - `aws:kms` (SSE-KMS).
+
+With encryption now being default, most exam scenarios focus on **enforcing specific policies** and understanding the **different encryption methods available**.
