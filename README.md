@@ -402,3 +402,39 @@ This exercise demonstrates how to host a static website using Amazon S3. Static 
    - Accessed the website via the provided bucket website endpoint.
    - Verified the functionality of `index.html` as the homepage.
    - Tested the error-handling functionality by navigating to an incorrect URL, which correctly displayed `error.html`.
+
+
+## S3 Versioning Lab
+
+#### Introduction
+This exercise focused on **versioning in Amazon S3**, a feature that allows you to maintain multiple versions of objects within an S3 bucket. Versioning is particularly useful for object recovery, backup, and accidental deletion prevention. The lab demonstrated how to enable versioning, manage versions, and leverage delete markers, while emphasizing its benefits and relevance for AWS certification exams.
+
+#### Steps Taken
+1. **Understanding Versioning**:
+   - Versioning was introduced as a tool for maintaining multiple versions of objects in S3, including deleted objects.
+   - Key advantages:
+     - Backup for all writes, even deletions.
+     - Cannot be disabled once enabled, only suspended.
+     - Integration with lifecycle rules.
+     - Multi-Factor Authentication (MFA) support.
+
+2. **Enabling Versioning**:
+   - Navigated to the S3 Management Console.
+   - Selected the bucket used for the exercise.
+   - Enabled versioning under the bucket’s **Properties** section.
+
+3. **Viewing and Managing Versions**:
+   - Observed the "Show versions" option after enabling versioning.
+   - Demonstrated:
+     - Uploading modified versions of a file (e.g., `index.html` with changes to indicate Version 2 and Version 3).
+     - Accessing specific versions using unique version IDs.
+
+4. **Handling Deletions**:
+   - Deleted an object, which resulted in a **delete marker** being applied.
+   - Explored how delete markers hide objects from the user interface while retaining their previous versions.
+   - Restored an object by removing its delete marker using the "Permanently delete" action.
+
+5. **Exam Tips and Best Practices**:
+   - Highlighted the benefits of versioning, including its backup capabilities and integration with lifecycle rules.
+   - Explained scenarios where enabling versioning and MFA can prevent accidental deletions.
+   - Reinforced that versioning cannot be completely disabled once activated, ensuring data safety.
