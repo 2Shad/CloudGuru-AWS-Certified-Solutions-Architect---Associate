@@ -594,3 +594,55 @@ Got it! Here's a more concise and test-focused version of the notes:
    - Moving infrequently accessed files to cheaper tiers (e.g., S3 IA or Glacier) to minimize costs.
 4. **Scenario-Based Questions**:
    - Expect scenarios about managing costs by transitioning files effectively using lifecycle rules.
+
+
+
+### S3 Object Lock and Glacier Vault Lock
+
+#### **S3 Object Lock**
+- **Purpose**: 
+  - Use a Write Once, Read Many (WORM) model.
+  - Prevents objects from being deleted or modified for a fixed time or indefinitely.
+  - Helps meet regulatory requirements or add an extra layer of protection against changes/deletions.
+  
+- **Modes**:
+  1. **Governance Mode**:
+     - Prevents overwriting, deleting, or altering lock settings unless users have special permissions.
+     - Allows certain users to alter retention settings or delete objects if necessary.
+     - **Use Case**: Scenarios where some users need to modify or delete objects.
+  2. **Compliance Mode**:
+     - Protected objects cannot be overwritten or deleted by any user, including the root user.
+     - Retention mode and period cannot be changed once set.
+     - **Use Case**: Scenarios requiring strict, unalterable protection.
+
+- **Retention Periods**:
+  - Protects an object version for a specified time (e.g., 10 days, 1 year).
+  - Retention metadata stored in the object indicates when the retention period expires.
+  - After expiration, objects can be modified or deleted unless a legal hold is applied.
+
+- **Legal Holds**:
+  - Prevents overwriting or deleting objects.
+  - Does not have an associated retention period; remains in effect until manually removed.
+  - Requires the `s3:PutObjectLegalHold` permission to place or remove holds.
+
+#### **Glacier Vault Lock**
+- **Purpose**: 
+  - Enforce compliance controls for Glacier vaults using a vault lock policy.
+  - Uses the WORM model.
+  
+- **Features**:
+  - Specify controls (e.g., WORM) in a vault lock policy.
+  - Policies are locked from future edits once set.
+  - Ensures long-term compliance and data immutability.
+
+#### **Exam Tips**:
+1. **WORM Model**:
+   - For S3: Use S3 Object Lock.
+   - For Glacier: Use Glacier Vault Lock.
+2. **Modes Recap**:
+   - **Governance Mode**: Allows limited modification or deletion by specific users.
+   - **Compliance Mode**: No user (even root) can modify or delete objects.
+3. **Object Lock Scope**:
+   - Can apply to individual objects or entire buckets.
+4. **Glacier Vault Lock**:
+   - Think of this for compliance needs in Glacier.
