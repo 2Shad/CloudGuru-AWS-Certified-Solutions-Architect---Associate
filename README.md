@@ -833,3 +833,70 @@ With encryption now being default, most exam scenarios focus on **enforcing spec
 - Replication works for new objects automatically but requires manual intervention for existing objects.
 - Delete markers and individual object deletions are **not replicated by default** unless explicitly configured.
 - Use cases often involve cross-region replication for resilience against natural disasters or compliance with regulations.
+
+
+# S3 Summary for Exam Preparation
+
+#### S3 Basics:
+- **Object-Based Storage:** Designed for uploading and storing files in the cloud.
+- **Limitations:** Not suitable for operating systems or databases.
+- **Storage Limits:** Files can range from 0 bytes to 5 TB, with unlimited storage capacity.
+- **Universal Namespace:** Bucket names are unique globally and form part of the bucket URL (e.g., `bucket-name.s3.region.amazonaws.com/key-name`).
+- **Successful Uploads:** HTTP 200 status code indicates success.
+
+#### S3 Objects:
+- **Key:** The file name (e.g., `Ralphie.jpg`).
+- **Value:** The file data, represented as bytes.
+- **Version ID:** Tracks different versions of the same object.
+- **Metadata:** Information about the object, such as content type or last-modified date.
+
+#### Security:
+- **Default Privacy:** Buckets and objects are private by default.
+- **Object ACLs:** Grant access to individual objects.
+- **Bucket Policies:** Control access at the bucket level (e.g., public access for static websites).
+- **Static Websites:** S3 supports hosting static websites with automatic scaling.
+
+#### Versioning:
+- **Backup Tool:** Stores all versions of objects, including deleted ones (via delete markers).
+- **Non-Disabling:** Can only be suspended, not turned off.
+- **Integration:** Works with lifecycle rules and supports multi-factor authentication.
+
+#### Storage Classes:
+1. **S3 Standard:** General-purpose for most workloads.
+2. **S3 Standard-Infrequent Access (IA):** For less frequently accessed critical data.
+3. **S3 One Zone-IA:** Cost-effective for non-critical, infrequently accessed data in one availability zone.
+4. **S3 Glacier:** For archiving with retrieval times of hours.
+5. **S3 Glacier Deep Archive:** Lowest-cost archival with 12+ hour retrieval times.
+6. **S3 Intelligent-Tiering:** Uses machine learning for cost optimization based on access patterns.
+
+#### Lifecycle Management:
+- **Automation:** Moves objects between storage tiers.
+- **Integration:** Works with versioning for managing current and previous versions.
+- **Applications:** Ideal for long-term cost management.
+
+#### Object Lock & Glacier Vault Lock:
+- **Object Lock (WORM):** Write Once, Read Many (WORM) model for immutability.
+  - **Governance Mode:** Restricts overwrites/deletions with limited permissions.
+  - **Compliance Mode:** Full protection, including root user restrictions.
+- **Glacier Vault Lock:** Enforces compliance rules like WORM for Glacier storage, locking policies permanently once applied.
+
+#### Encryption:
+- **In Transit:** SSL/TLS or HTTPS ensures data security while transferring.
+- **At Rest (Server-Side Encryption):**
+  - **SSE-S3:** Managed by S3 using AES-256.
+  - **SSE-KMS:** Managed by AWS Key Management Service.
+  - **SSE-C:** Customer-managed encryption keys.
+- **Client-Side Encryption:** Files are encrypted before upload.
+- **Bucket Policies for Enforcement:** Deny PUT requests without encryption.
+
+#### Performance Optimization:
+- **Prefixes:** Separate prefixes (folders/subfolders) increase request throughput (e.g., 3,500 PUT/POST/DELETE and 5,500 GET/HEAD requests/sec per prefix).
+- **Multipart Uploads:** For files over 100 MB (mandatory for >5 GB) to boost upload efficiency.
+- **Byte-Range Fetches:** Parallelize downloads by specifying byte ranges, improving speed and fault tolerance.
+
+#### Replication:
+- **Replication Scope:** Replicates objects between buckets, both within the same region and across regions.
+- **Versioning Requirement:** Both source and destination buckets must have versioning enabled.
+- **Replication Rules:**
+  - Existing objects are not automatically replicated.
+  - Delete markers are not replicated by default (configurable).
