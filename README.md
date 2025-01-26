@@ -790,3 +790,46 @@ With encryption now being default, most exam scenarios focus on **enforcing spec
 
 - **Performance Optimization:**
   - Combine prefixes, multipart uploads, and byte-range fetches for scalable, efficient S3 operations.
+
+
+## S3 Replication
+
+#### Key Features:
+1. **Replication Functionality**:
+   - Replicate objects between two buckets (either within the same region or cross-region).
+   - Versioning must be enabled on both the source and destination buckets.
+
+2. **Behavior**:
+   - Existing objects in the bucket are **not replicated automatically** when replication is enabled. You need to create a batch job for existing objects.
+   - Delete markers are **not replicated by default**.
+
+3. **Use Cases**:
+   - Backup and disaster recovery across regions or within the same region.
+   - Compliance with data residency regulations.
+   - Ensures resiliency by replicating data to geographically diverse regions.
+
+#### How to Enable S3 Replication:
+1. **Create Two Buckets**:
+   - Define a source and a destination bucket.
+   - Enable versioning on both buckets.
+
+2. **Upload Files to Source Bucket**:
+   - Add objects before or after turning on replication.
+
+3. **Enable Replication Rules**:
+   - Access the source bucket's management section.
+   - Create replication rules and apply them to specific prefixes or all objects.
+   - Choose a destination bucket (within the same account or a different account).
+   - Configure IAM roles for permissions (create a new role or select an existing one).
+
+4. **Handle Existing Objects**:
+   - Optionally enable replication of existing objects via a batch job.
+
+5. **Verify Replication**:
+   - Check the destination bucket for replicated objects. Note that batch replication may take a few minutes.
+
+#### Exam Tips:
+- Remember the requirement to enable **versioning** on both buckets.
+- Replication works for new objects automatically but requires manual intervention for existing objects.
+- Delete markers and individual object deletions are **not replicated by default** unless explicitly configured.
+- Use cases often involve cross-region replication for resilience against natural disasters or compliance with regulations.
