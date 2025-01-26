@@ -907,7 +907,6 @@ With encryption now being default, most exam scenarios focus on **enforcing spec
 #### Overview:
 Amazon S3 offers robust storage capabilities that include **cross-region replication** for enhanced data availability and disaster recovery. This process involves replicating objects from one S3 bucket to another in a different AWS Region, ensuring accessibility even in extreme data loss scenarios.
 
-
 ### **Steps to Set Up Replication**
 
 #### **1. Create an S3 Bucket and Enable Replication**
@@ -938,8 +937,6 @@ Amazon S3 offers robust storage capabilities that include **cross-region replica
    - Save the replication rule.
    - When prompted, choose **No** for replicating existing objects.
 
----
-
 #### **2. Test Replication**
 
 1. **Upload a File to the Source Bucket**:
@@ -949,3 +946,82 @@ Amazon S3 offers robust storage capabilities that include **cross-region replica
 2. **Verify Replication**:
    - Open the `appconfigprod2` bucket.
    - Check if the file has been replicated. Refresh if it doesn’t appear immediately.
+
+
+
+### **Lab Exercise: Creating a Static Website Using Amazon S3**
+
+### **Objective:**
+Set up a static website using Amazon S3 with a custom error page and proper public access settings.
+
+### **Steps**
+
+#### **1. Create an S3 Bucket**
+1. **Download the HTML Files**:
+   - Go to the [GitHub repository](https://github.com/ACloudGuru-Resources/Course-Certified-Solutions-Architect-Associate/tree/master/labs/creating-a-static-website-using-amazon-s3).
+   - Download **index.html** and **error.html**:
+     - Click **Raw** for each file, then **Save As**.
+
+2. **Create the Bucket**:
+   - Open **AWS Console** > **S3**.
+   - Click **Create bucket** and configure:
+     - **Bucket Name**: Unique globally.
+     - **Region**: US East (N. Virginia).
+   - **Disable Block Public Access**:
+     - Uncheck **Block all public access** and all sub-options.
+   - Acknowledge the public access warning.
+   - Click **Create bucket**.
+
+3. **Upload Files**:
+   - Open the newly created bucket.
+   - Click **Upload** > **Add Files** and select `index.html` and `error.html`.
+   - Click **Upload**.
+
+
+#### **2. Enable Static Website Hosting**
+1. Go to the **Properties tab** of the bucket.
+2. Scroll to **Static website hosting** and click **Edit**.
+3. Set the following:
+   - Enable static website hosting.
+   - Set **Hosting type** to **Host a static website**.
+   - Enter `index.html` as the **Index document**.
+   - Enter `error.html` as the **Error document**.
+4. Save changes.
+5. Open the **Endpoint URL** provided in the **Static website hosting** section. Initially, it may show a **403 Forbidden error**.
+
+
+#### **3. Apply Bucket Policy**
+1. Go to the **Permissions tab** of the bucket.
+2. Click **Edit** under **Bucket Policy**.
+3. Copy the bucket’s **ARN** from the Permissions section.
+4. Create a policy using the **Policy Generator**:
+   - Select:
+     - **Policy Type**: S3 Bucket Policy.
+     - **Effect**: Allow.
+     - **Principal**: `*` (all users).
+     - **Action**: `s3:GetObject`.
+     - **ARN**: `<Bucket ARN>/*`.
+   - Generate and copy the policy.
+
+5. Paste the JSON policy into the editor:
+   ```json
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Effect": "Allow",
+               "Principal": "*",
+               "Action": "s3:GetObject",
+               "Resource": "<Bucket ARN>/*"
+           }
+       ]
+   }
+   ```
+6. Save changes.
+
+
+#### **4. Verify the Static Website**
+1. Refresh the **Static Website Endpoint URL**:
+   - The homepage (`index.html`) should load.
+2. Test the error page:
+   - Add an invalid path after the `/` in the URL to trigger `error.html`.
