@@ -900,3 +900,52 @@ With encryption now being default, most exam scenarios focus on **enforcing spec
 - **Replication Rules:**
   - Existing objects are not automatically replicated.
   - Delete markers are not replicated by default (configurable).
+
+
+### Lab Exercise: Setting Up Cross-Region S3 Bucket Replication
+
+#### Overview:
+Amazon S3 offers robust storage capabilities that include **cross-region replication** for enhanced data availability and disaster recovery. This process involves replicating objects from one S3 bucket to another in a different AWS Region, ensuring accessibility even in extreme data loss scenarios.
+
+
+### **Steps to Set Up Replication**
+
+#### **1. Create an S3 Bucket and Enable Replication**
+
+1. **Preparation**:
+   - Log in to the **AWS Console** using the provided credentials in an incognito browser window.
+   - Start in the **N. Virginia (us-east-1)** Region.
+
+2. **Create the Destination Bucket**:
+   - Navigate to the **S3 Service**.
+   - Copy the name of the existing `appconfigprod1` bucket.
+   - Change the Region to **US West (Oregon) (us-west-2)**.
+   - Click **Create bucket**.
+     - Paste the bucket name and replace `appconfigprod1` with `appconfigprod2`.
+     - Under **Copy settings from existing bucket**, select `appconfigprod1`.
+   - Leave other settings as default and create the bucket.
+
+3. **Configure Replication**:
+   - Open the `appconfigprod1` bucket.
+   - Go to the **Management tab** and click **Create replication rule**.
+   - Enable **Bucket Versioning**.
+   - Configure the following:
+     - **Replication rule name**: `CrossRegion`.
+     - **Source bucket**: Apply to all objects.
+     - **Destination**: Select the `appconfigprod2` bucket.
+     - Enable **Bucket Versioning** for the destination.
+     - Under **IAM Role**, create a new role.
+   - Save the replication rule.
+   - When prompted, choose **No** for replicating existing objects.
+
+---
+
+#### **2. Test Replication**
+
+1. **Upload a File to the Source Bucket**:
+   - Open the `appconfigprod1` bucket and click **Upload**.
+   - Add a file of your choice and complete the upload.
+
+2. **Verify Replication**:
+   - Open the `appconfigprod2` bucket.
+   - Check if the file has been replicated. Refresh if it doesn’t appear immediately.
