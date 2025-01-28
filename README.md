@@ -1025,3 +1025,65 @@ Set up a static website using Amazon S3 with a custom error page and proper publ
    - The homepage (`index.html`) should load.
 2. Test the error page:
    - Add an invalid path after the `/` in the URL to trigger `error.html`.
+
+
+
+## **Lab Exercise: S3 Bucket Versioning**
+
+### **Objective:**
+- Create and manage **public** and **private** S3 buckets.
+- Upload and access objects based on permissions.
+- Enable **versioning** and manage multiple versions of the same object.
+
+
+### **Steps**
+
+#### **1. Create a Public and Private S3 Bucket**
+1. **Download the Lab Files**:
+   - Go to [GitHub Repository](https://github.com/ACloudGuru-Resources/S3BucketsLabFiles).
+   - Download **cat1.jpg** and **cat2.jpg**.
+
+2. **Create a Public Bucket**:
+   - Open **AWS Console** > **S3** > **Create bucket**.
+   - Set **Bucket Name** (must be unique).
+   - **Region**: US East (N. Virginia).
+   - **Object Ownership**: Select **ACLs enabled, Bucket owner preferred**.
+   - **Disable Block Public Access** (Uncheck all).
+   - Acknowledge public access warning.
+   - Click **Create bucket**.
+
+3. **Create a Private Bucket**:
+   - Repeat the **Create bucket** steps but **leave Block Public Access enabled**.
+
+
+#### **2. Upload and Test Object Access**
+1. **Upload to the Private Bucket**:
+   - Open the private bucket > Click **Upload**.
+   - Select **cat1.jpg** > Click **Upload**.
+   - Open the **Object URL** in a browser (should get an error).
+   - Check **Object Actions** (Make public using ACL should be disabled).
+
+2. **Upload to the Public Bucket**:
+   - Open the public bucket > Click **Upload**.
+   - Select **cat1.jpg** > Click **Upload**.
+   - Open the **Object URL** (should get an error—object is private).
+   - In **Object Actions**, select **Make public using ACL**.
+   - Reopen the **Object URL** (should now be accessible).
+
+
+#### **3. Enable Versioning and Manage Versions**
+1. **Enable Versioning**:
+   - Go to **Public Bucket** > **Properties**.
+   - Find **Bucket Versioning** > Click **Edit**.
+   - Click **Enable** > Save changes.
+
+2. **Upload a New Version**:
+   - Rename **cat2.jpg** to **cat1.jpg**.
+   - Upload it to the **public bucket**.
+   - Click the file name > Go to **Versions** (should see two versions).
+
+3. **Verify Different Versions**:
+   - Make the **latest version** public.
+   - Open the **Object URL** (displays the new image).
+   - Go to **Versions** > Click on the **null object** (original version).
+   - Open its **Object URL** (should display the original image).
