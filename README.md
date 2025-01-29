@@ -1087,3 +1087,67 @@ Set up a static website using Amazon S3 with a custom error page and proper publ
    - Open the **Object URL** (displays the new image).
    - Go to **Versions** > Click on the **null object** (original version).
    - Open its **Object URL** (should display the original image).
+
+
+# **EC2 Overview**
+
+#### **What is EC2?**
+- **Elastic Compute Cloud (EC2)** is a **secure, resizable compute capacity** in the AWS cloud.
+- Functions like a **virtual machine (VM)** but is hosted on AWS instead of an on-premises data center.
+- Designed for **web-scale cloud computing**, offering flexibility and control.
+- **Launched in 2006**, EC2 **revolutionized cloud computing**, eliminating the need for long-term hardware investment.
+
+#### **Benefits of EC2**
+- **Pay only for what you use**, avoiding the upfront cost of purchasing physical servers.
+- **Scale up or down instantly**, ensuring optimal resource utilization.
+- **Provision instances in minutes**, unlike traditional infrastructure, which could take days or weeks.
+
+
+### **EC2 Pricing Models**
+EC2 offers **four main pricing options** for different use cases:
+
+#### **1. On-Demand Instances**
+- **Best for:** Short-term workloads, testing, and unpredictable usage.
+- **Billing:** Pay per hour or second, no long-term commitment.
+- **Use cases:** Dev/test environments, unpredictable traffic, and first-time EC2 users.
+
+#### **2. Reserved Instances (RIs)**
+- **Best for:** Workloads with **predictable usage** over a long period.
+- **Billing:** Commit for **1 or 3 years** with up to **72% savings**.
+- **Types:**
+  - **Standard RIs:** Highest savings (up to 72%), but no flexibility.
+  - **Convertible RIs:** Changeable to different instance types but offer lower savings (54%).
+  - **Scheduled RIs:** Capacity reserved for specific time slots.
+
+#### **3. Spot Instances**
+- **Best for:** Cost-sensitive workloads that can tolerate interruptions.
+- **Billing:** Purchase unused capacity at discounts up to **90%**.
+- **Use cases:** Batch jobs, image rendering, genomic sequencing, and trading engines.
+- **Limitation:** Instance can be **terminated** if AWS needs capacity back.
+
+#### **4. Dedicated Instances & Hosts**
+- **Best for:** **Compliance, licensing, and regulatory requirements**.
+- **Billing:** Available **On-Demand or Reserved (up to 70% savings)**.
+- **Use cases:** Running licensed software (e.g., Oracle, Windows Server) or meeting regulatory standards (e.g., banking, healthcare).
+
+
+### **Comparing On-Premises vs. EC2**
+| **Factor**         | **On-Premises**         | **EC2**                  |
+|--------------------|-----------------------|--------------------------|
+| **Provisioning Time** | Days to weeks        | Minutes                 |
+| **Cost Model**     | Upfront hardware costs | Pay-as-you-go           |
+| **Scalability**    | Limited                | Instantly scalable      |
+| **Maintenance**    | Requires manual setup  | Managed by AWS          |
+| **Capacity Planning** | Long-term forecasting | Adjust on demand        |
+
+
+### **Exam Tips**
+1. **EC2 is like a VM** but hosted on AWS, providing flexible and scalable computing power.
+2. **Choose the right pricing model:**
+   - **On-Demand:** Flexibility, short-term workloads.
+   - **Reserved:** Long-term, predictable usage.
+   - **Spot:** Cost-sensitive, interruption-tolerant applications.
+   - **Dedicated:** Compliance or licensing needs.
+3. **AWS Pricing Calculator** helps estimate EC2 costs based on your requirements.
+
+
