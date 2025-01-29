@@ -1151,3 +1151,68 @@ EC2 offers **four main pricing options** for different use cases:
 3. **AWS Pricing Calculator** helps estimate EC2 costs based on your requirements.
 
 
+### **Demo: Launching an EC2 Instance**
+
+#### **Introduction**
+This demo walks through launching an Amazon EC2 instance in the AWS Management Console, covering key steps such as selecting an AMI, configuring instance settings, and connecting to the instance.
+
+
+#### **Steps to Launch an EC2 Instance**
+1. **Navigate to EC2 in AWS Console**  
+   - EC2 is a **regional service**, meaning instances are specific to a region.
+   - Confirm you're in the correct region (e.g., **us-east-1**).
+
+2. **Launch an Instance**
+   - Click **Launch Instance**.
+   - Enter an **Instance Name** (e.g., *MyWebServer1*).
+
+3. **Select an Amazon Machine Image (AMI)**
+   - Choose an OS (e.g., **Amazon Linux AMI** – free tier eligible).
+   - Other options: Ubuntu, Windows, macOS, Red Hat.
+
+4. **Choose an Instance Type**
+   - Default: **t2.micro** (1 vCPU, 1GB RAM, free tier eligible).
+   - Larger options like **c5.18xlarge** available but costly.
+
+5. **Set Up Key Pair for SSH Access**
+   - Create a new **key pair** (e.g., *MyKeyPair*).
+   - Save the **.pem** file for future access.
+   - If using **Putty (Windows)**, convert to **.ppk** format.
+
+6. **Configure Network Settings**
+   - Instances are behind **Security Groups** (virtual firewalls).
+   - Create a **new security group** (`launch-wizard-1`).
+   - Allow inbound traffic for:
+     - **SSH (Port 22)** – Remote access.
+     - **HTTP (Port 80)** – Web access.
+     - **HTTPS (Port 443)** – Secure web access.
+
+7. **Define Storage**
+   - Default: **8GB EBS (gp3)** – SSD-backed storage.
+   - Advanced configurations available for different workloads.
+
+8. **Launch the Instance**
+   - Click **Launch Instance** and wait for status to change from **Pending** to **Running**.
+
+
+#### **Connecting to the EC2 Instance**
+1. Select the instance → Click **Connect**.
+2. Use **EC2 Instance Connect** (browser-based terminal).
+3. If using an external SSH client:
+   - Use the **Public IP Address**.
+   - Run: `ssh -i MyKeyPair.pem ec2-user@<Public-IP>`.
+
+
+#### **Instance Management**
+- **Check Security Settings**  
+  - Security Groups define allowed inbound traffic.
+  - Ensure **SSH (22), HTTP (80), and HTTPS (443)** are open to the internet (`0.0.0.0/0`).
+
+- **Monitor & Manage**  
+  - **Networking Tab** – Shows public/private IP.
+  - **Storage Tab** – Displays root volume details.
+  - **Monitoring Tab** – Tracks CPU utilization and instance health.
+
+- **Terminate the Instance**  
+  - To avoid charges, select the instance and click **Terminate**.
+  - Instance status will change to **Shutting Down → Terminated**.
